@@ -1,0 +1,42 @@
+#menu_app{
+    background-color: darkgray;
+    border: 1em solid darkgray;
+    width: max-content
+}
+
+#tabs{
+    margin-left: 2em;
+}
+
+.OK{
+    background-color: green !important;
+}
+
+.KO{
+    background-color: red !important;
+}
+
+#host_table_wrapper{
+    width: 40em;
+    margin-left: 20em;
+    margin-top: 4em;
+}
+
+td{
+    text-align: center !important;
+}
+
+th{
+    text-align: center !important;
+}
+
+.card{
+    margin-top: 2em;
+    margin-right: 2em;
+}
+
+#ws_list{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
