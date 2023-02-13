@@ -28,9 +28,10 @@ class HostList(models.Model):
 class JmeterJmx(models.Model):
     j_name = models.CharField(max_length=100, verbose_name="Nom")
     j_scenario_path= models.CharField(max_length=200,verbose_name="Path")
+    j_resultat_file = models.CharField(max_length=200,verbose_name="Fichier")
 
     def __str__(self):
-        return self.j_name+"_"+self.j_scenario_path
+        return self.j_name+"_"+self.j_scenario_path+"_"+self.j_resultat_file
 
 class Application(models.Model):
     a_name = models.CharField(max_length=200,verbose_name="Nom",unique=True)

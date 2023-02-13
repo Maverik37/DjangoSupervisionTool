@@ -64,6 +64,7 @@ class JmeterJmxAdmin(admin.ModelAdmin):
     list_display=(
         "j_name",
         "j_scenario_path",
+        "j_resultat_file",
         )
 
     list_filter=(
