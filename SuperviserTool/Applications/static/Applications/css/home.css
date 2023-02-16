@@ -1,0 +1,20 @@
+.navbar{
+    display: flex !important;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.dropdown{
+    margin-right: 4em;
+
+}
+
+.form-label{
+    margin-left: 2em;
+    margin-bottom: 0.4em;
+}
+
+.form-control{
+    width: 8em;
+    margin-left: 1em;
+}
