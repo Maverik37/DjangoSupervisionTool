@@ -30,6 +30,8 @@
                 <th>Nom</th>
                 <th>IP</th>
                 <th>Etat</th>
+                <th>OS (version)</th>
+                <th>Serveur (version)</th>
               </tr>
             </thead>
             <tbody>
@@ -39,12 +41,16 @@
                       <td>{{ host.h_name }}</td>
                       <td>{{ host.h_ip }}</td>
                       <td>{{ host.h_status }}</td>
+                      <td>{{ host.h_os}}</td>
+                      <td>{{ host.h_type_server}}</td>
                   </tr>
                 {% else %}
                 <tr class="KO">
                   <td>{{ host.h_name }}</td>
                   <td>{{ host.h_ip }}</td>
                   <td>{{ host.h_status }}</td>
+                  <td>{{ host.h_os}}</td>
+                  <td>{{ host.h_type_server}}</td>
                 </tr>
                 {% endif %}
               {% endfor %}
@@ -87,5 +93,4 @@
           {% endfor %}
       </div>
     </div>
-  
 {% endblock %}
