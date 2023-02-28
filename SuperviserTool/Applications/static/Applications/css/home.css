@@ -19,11 +19,8 @@
     margin-left: 1em;
 }
 
-#login_link{
-    margin-right: 2em;
-}
 
-#logout_link{
+#logout_link , #login_link{
     margin-right: 2em;
 }
 
@@ -31,3 +28,16 @@
     font-size: 1em;
     margin-right: 2em ;
 }
+
+#id_username, #id_password{
+    width: 8em;
+    position: relative;
+    left: 1em;
+}
+
+form{
+    position: relative;
+    top: 4em;
+    left: 40em;
+}
+
