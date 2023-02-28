@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -58,7 +58,7 @@ ROOT_URLCONF = 'SuperviserTool.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR,'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -72,7 +72,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'SuperviserTool.wsgi.application'
-#DBROUTER
+
+CSRF_TRUSTED_ORIGINS= ['http://127.0.0.1:8000/']
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
@@ -107,6 +108,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+#URL Login/logout/redirect
+LOGIN_URL = 'login'
+LOGOUT_URL = 'logout'
+LOGIN_REDIRECT_URL = '/'
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/

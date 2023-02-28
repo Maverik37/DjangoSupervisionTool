@@ -18,3 +18,16 @@
     width: 8em;
     margin-left: 1em;
 }
+
+#login_link{
+    margin-right: 2em;
+}
+
+#logout_link{
+    margin-right: 2em;
+}
+
+#userinfo{
+    font-size: 1em;
+    margin-right: 2em ;
+}

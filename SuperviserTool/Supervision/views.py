@@ -8,4 +8,7 @@ from SuperviserTool.config import qs_app_list
 def home(request):
 	qs_host_list = HostList.objects.all()
 	qs_app_sup = Application.objects.all()
-	return render(request,'Supervision/home.html',{'app_list':qs_app_list, 'host_list':qs_host_list,'app_sup':qs_app_sup})
+	username = None
+	if request.user.is_authenticated:
+		username = request.user.username
+	return render(request,'Supervision/home.html',{'app_list':qs_app_list, 'host_list':qs_host_list,'app_sup':qs_app_sup,'connecteduser':username})
