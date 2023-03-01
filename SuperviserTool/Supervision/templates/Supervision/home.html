@@ -13,84 +13,93 @@
 
 <!-- Corp de la page pour l'applis-->
 {% block content %}
-    <div id="tabs">
-      <ul class="nav nav-tabs" id="myTab" role="tablist">
-        <li class="nav-item" role="presentation">
-          <button class="nav-link active" id="host_list-tab" data-bs-toggle="tab" data-bs-target="#host_list" type="button" role="tab" aria-controls="host_list" aria-selected="false">Machines</button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button class="nav-link" id="ws_list-tab" data-bs-toggle="tab" data-bs-target="#ws_list" type="button" role="tab" aria-controls="ws_list" aria-selected="true">Applications</button>
-        </li>
-      </ul>
-      <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade show active" id="host_list" role="tabpanel" aria-labelledby="host_list-tab">
-          <table id="host_table">
-            <thead>
-              <tr>
-                <th>Nom</th>
-                <th>IP</th>
-                <th>Etat</th>
-                <th>OS (version)</th>
-                <th>Serveur (version)</th>
-              </tr>
-            </thead>
-            <tbody>
-             {% for host in host_list %}
-                {% if host.h_status == "OK" %}
-                  <tr class="OK">
-                      <td>{{ host.h_name }}</td>
-                      <td>{{ host.h_ip }}</td>
-                      <td>{{ host.h_status }}</td>
-                      <td>{{ host.h_os}}</td>
-                      <td>{{ host.h_type_server}}</td>
-                  </tr>
-                {% else %}
-                <tr class="KO">
+<div id="contenu">
+<nav id="menu_supervision" class="navbar bg-light">
+  <ul class="nav flex-column mb-auto">
+      <li class="nav-item">
+          <a href="" class="nav-link active" aria-current="page"><i class="fa-solid fa-desktop"></i> Ajout machine(s)</a>
+      </li>
+  </ul>
+</nav>
+<div id="tabs">
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="host_list-tab" data-bs-toggle="tab" data-bs-target="#host_list" type="button" role="tab" aria-controls="host_list" aria-selected="false">Machines</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="ws_list-tab" data-bs-toggle="tab" data-bs-target="#ws_list" type="button" role="tab" aria-controls="ws_list" aria-selected="true">Applications</button>
+    </li>
+  </ul>
+  <div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="host_list" role="tabpanel" aria-labelledby="host_list-tab">
+      <table id="host_table">
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>IP</th>
+            <th>Etat</th>
+            <th>OS (version)</th>
+            <th>Serveur (version)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for host in host_list %}
+            {% if host.h_status == "OK" %}
+              <tr class="OK">
                   <td>{{ host.h_name }}</td>
                   <td>{{ host.h_ip }}</td>
                   <td>{{ host.h_status }}</td>
                   <td>{{ host.h_os}}</td>
                   <td>{{ host.h_type_server}}</td>
-                </tr>
-                {% endif %}
-              {% endfor %}
-            </tbody>
-          </table>
-        </div>
-        <div class="tab-pane fade" id="ws_list" role="tabpanel" aria-labelledby="ws-tab">
-          {% for app in app_sup %}
-              {% if app.a_actual_state == "OK" %}
-                <div class="card bg-success" style="width: 18rem;">
+              </tr>
+            {% else %}
+            <tr class="KO">
+              <td>{{ host.h_name }}</td>
+              <td>{{ host.h_ip }}</td>
+              <td>{{ host.h_status }}</td>
+              <td>{{ host.h_os}}</td>
+              <td>{{ host.h_type_server}}</td>
+            </tr>
+            {% endif %}
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-pane fade" id="ws_list" role="tabpanel" aria-labelledby="ws-tab">
+      {% for app in app_sup %}
+          {% if app.a_actual_state == "OK" %}
+            <div class="card bg-success" style="width: 18rem;">
+              <div class="card-header">
+                  {{app.a_name}}
+              </div>
+              <div class="card-body">
+                  Etat {{app.a_actual_state}}
+              </div>
+          </div>
+          {% else %}
+              {% if app.a_host.h_status == "OK" %}
+                <div class="card bg-danger" style="width: 18rem;">
                   <div class="card-header">
                       {{app.a_name}}
                   </div>
                   <div class="card-body">
                       Etat {{app.a_actual_state}}
                   </div>
-              </div>
+                </div>
               {% else %}
-                  {% if app.a_host.h_status == "OK" %}
-                    <div class="card bg-danger" style="width: 18rem;">
-                      <div class="card-header">
-                          {{app.a_name}}
-                      </div>
-                      <div class="card-body">
-                          Etat {{app.a_actual_state}}
-                      </div>
-                    </div>
-                  {% else %}
-                    <div class="card bg-danger" style="width: 18rem;">
-                      <div class="card-header">
-                          {{app.a_name}}
-                      </div>
-                      <div class="card-body">
-                          <p>Etat {{app.a_actual_state}}</p>
-                          <p>Raison : {{app.a_host.h_name}} est KO</p>
-                      </div>
-                    </div>
-                  {% endif %}
+                <div class="card bg-danger" style="width: 18rem;">
+                  <div class="card-header">
+                      {{app.a_name}}
+                  </div>
+                  <div class="card-body">
+                      <p>Etat {{app.a_actual_state}}</p>
+                      <p>Raison : {{app.a_host.h_name}} est KO</p>
+                  </div>
+                </div>
               {% endif %}
-          {% endfor %}
-      </div>
-    </div>
+          {% endif %}
+      {% endfor %}
+  </div>
+</div>
+</div>
 {% endblock %}
