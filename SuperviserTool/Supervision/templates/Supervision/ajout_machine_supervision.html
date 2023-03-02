@@ -1,1 +1,48 @@
 {% extends 'Supervision/home.html' %}
+{% load static %}
+
+{% block css_app %}
+  <link href="{% static 'Supervision/css/ajout_host.css' %}" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+{% block javascript_app %}
+<script src="{% static 'Supervision/js/ajout_host.js' %}"></script>
+{% endblock%}
+
+{%block app_content%}
+  <div id="formulaire_ajout_host">
+    <div class="row">
+      <div class="input-group mb-3 col">
+        <span class="input-group-text" id="inputGroup-sizing-default">Hostname</span>
+        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+      </div>
+      <div class="input-group mb-3 col">
+        <span class="input-group-text" id="inputGroup-sizing-default">IP</span>
+        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+      </div>
+    </div>
+    <div class="row">
+      <div  class="col">
+        <select class="form-select" aria-label="Default select example">
+          <option selected>Sélectionnez un OS</option>
+          <option value="1">Windows</option>
+          <option value="2">Ubuntu</option>
+          <option value="3">Debian</option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div  class="col">
+        <select class="form-select" aria-label="Default select example">
+          <option selected>Sélectionnez un type de serveur</option>
+          <option value="1">Nginx</option>
+          <option value="2">Wildfly</option>
+          <option value="3">Django</option>
+        </select>
+      </div>
+    </div>
+    <div id="submitbutton" class="row">
+        <button id="validatebtn" class="btn btn-primary" type="submit">Valider</button>
+    </div>
+  </div>
+{% endblock %}

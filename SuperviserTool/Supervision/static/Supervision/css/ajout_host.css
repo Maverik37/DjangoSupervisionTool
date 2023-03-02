@@ -1,0 +1,12 @@
+#formulaire_ajout_host{
+    position: relative;
+    left: 35em;
+}
+
+.row{
+    margin-top: 2em;
+}
+
+#submitbutton{
+    margin-top: 1em !important;
+}

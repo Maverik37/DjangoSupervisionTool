@@ -4,6 +4,11 @@
     justify-content: space-between;
 }
 
+/* #content{
+    display: flex;
+    flex-direction: row !important;
+} */
+
 .dropdown{
     margin-right: 4em;
 
@@ -39,9 +44,5 @@ form{
     position: relative;
     top: 4em;
     left: 40em;
-}
-
-#navbarNav{
-    background-color: bisque;
 }
 
