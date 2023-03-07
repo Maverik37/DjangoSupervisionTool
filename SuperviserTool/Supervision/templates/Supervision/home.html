@@ -13,7 +13,8 @@
 {% block javascript%}
 <!-- JS -->
 <script src="{% static 'Supervision/js/home.js' %}"></script>
-<script src="{% static 'Supervision/js/ajout_host.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+<!-- <script src="{% static 'Supervision/js/ajout_host.js' %}"></script> -->
 {% endblock %}
 
 {% block javascript_app %}
@@ -28,7 +29,7 @@
       <a href={% url 'Supervision:supervision_index' %} class="nav-link text-dark active" aria-current="page">accueil</a>
     </li>
       <li class="nav-item">
-          <a href={% url 'Supervision:supervision_add_host' %} class="nav-link text-dark active" aria-current="page">Ajout machine(s)</a>
+          <a href={% url 'Supervision:supervision_add_host_page' %} class="nav-link text-dark active" aria-current="page">Ajout machine(s)</a>
       </li>
   </ul>
 </nav>
