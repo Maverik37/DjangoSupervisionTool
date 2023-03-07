@@ -4,6 +4,11 @@
     justify-content: space-between;
 }
 
+/* #content{
+    display: flex;
+    flex-direction: row !important;
+} */
+
 .dropdown{
     margin-right: 4em;
 

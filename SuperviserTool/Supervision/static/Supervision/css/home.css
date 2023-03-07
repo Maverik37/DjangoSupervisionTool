@@ -40,3 +40,12 @@ th{
     flex-direction: row;
     flex-wrap: wrap;
 }
+#contenu{
+    display: flex;
+    flex-direction: row;
+}
+
+#menu_supervision{
+    background-color: lightslategray !important;
+    color: black;
+}
