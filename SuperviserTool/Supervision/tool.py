@@ -72,3 +72,31 @@ def add_new_jmx(dict):
         obj_jmx.save()
     except Exception as e:
         print(e)
+
+def add_new_os(dict):
+    json_data=json.loads(dict)
+
+    os = json_data["OS"]
+    version = json_data["version"]
+
+    try:
+        obj_os = OS()
+        obj_os.o_name = os
+        obj_os.o_version = version
+        obj_os.save()
+    except Exception as e:
+        print(e)
+
+def add_new_server(dict):
+    json_data=json.loads(dict)
+
+    server = json_data["Server"]
+    version = json_data["Version"]
+
+    try:
+        obj_server = TypeServer()
+        obj_server.t_name = server
+        obj_server.t_version_server = version
+        obj_server.save()
+    except Exception as e:
+        print(e)

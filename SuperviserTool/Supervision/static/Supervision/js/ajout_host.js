@@ -17,6 +17,8 @@ function getCookie(name) {
 
 $(document).ready(function(){
     var $submit = $('#validatebtn');
+        $SubmitOS = $('#SubmitOS');
+        $SubmitServer = $('#SubmitServer');
 /*  TODO : REGEX pour check si l'input mis correspond bien a une adresse IP
     let n = 0;
     //compteur pour compter les numéros
@@ -44,7 +46,7 @@ $(document).ready(function(){
         let os=$('#selectOS option:selected').val();
         let typeserver=$('#selectServ option:selected').val();
         regexp = new RegExp('^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$');
-
+        //Vérification si les formulaires sont bien saisis
         if (hostname == null || !ip.match(regexp) || os == "" || typeserver == "" ){
             $.alert({
                 title: 'Alert!',
@@ -52,6 +54,7 @@ $(document).ready(function(){
             });
         }
         else{
+            //formattage des donénes à envoyer 
             let data={};
             data["hostname"]=hostname;
             data["ip"]=ip;
@@ -86,7 +89,105 @@ $(document).ready(function(){
                     });
                 }
             });
-            
         }
     });
+
+    // action quand on utilise le bouton pour ajouter un nouvel OS
+    $SubmitOS.on('click',function(){
+        let name = $('#OsName').val();
+        let version = $('#OsVersion').val();
+
+        // Vérification
+        if (name == null || version == null){
+            $.alert({
+                title: 'Alert!',
+                content: 'Formulaire saisit incorrect',
+            });
+        }
+        else{
+            //Création dictionnaire
+            let data={};
+            
+            data["OS"] = name;
+            data["version"] = version;
+
+            //Conversion en format json
+            json=JSON.stringify(data);
+            console.log(json)
+            //Acquisition du csrftoken
+            let csrftoken=getCookie('csrf-token');
+
+            $.ajaxSetup({
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader('Csrf-Token', csrftoken);
+                },
+                         cache: false
+            });
+
+            $.ajax({
+                headers: { "X-CSRFToken": csrftoken },
+                url: "/supervision/add_os_bdd/",
+                type: "POST",
+                content_type: "application/json",
+                data: json,
+                success: function(response){
+                console.log(response);
+                    $.alert({
+                        title: 'Success',
+                        content: 'Ajout réussit',
+                    });
+                    $('#addOS').modal('hide');
+                }
+            });
+        }
+    });
+
+    $SubmitServer.on('click',function(){
+        let name = $('#ServerName').val();
+        let version = $('#ServerVersion').val();
+
+        // Vérification
+        if (name == null || version == null){
+            $.alert({
+                title: 'Alert!',
+                content: 'Formulaire saisit incorrect',
+            });
+        }
+        else{
+            //Création dictionnaire
+            let data={};
+            
+            data["Server"] = name;
+            data["Version"] = version;
+
+            //Conversion en format json
+            json=JSON.stringify(data);
+            console.log(json)
+            //Acquisition du csrftoken
+            let csrftoken=getCookie('csrf-token');
+
+            $.ajaxSetup({
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader('Csrf-Token', csrftoken);
+                },
+                         cache: false
+            });
+
+            $.ajax({
+                headers: { "X-CSRFToken": csrftoken },
+                url: "/supervision/add_server_bdd/",
+                type: "POST",
+                content_type: "application/json",
+                data: json,
+                success: function(response){
+                console.log(response);
+                    $.alert({
+                        title: 'Success',
+                        content: 'Ajout réussit',
+                    });
+                    $('#addServer').modal('hide');
+                }
+            });
+        }
+    })
 });
