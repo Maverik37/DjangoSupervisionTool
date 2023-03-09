@@ -28,9 +28,12 @@
     <li class="nav-item">
       <a href={% url 'Supervision:supervision_index' %} class="nav-link text-dark active" aria-current="page">accueil</a>
     </li>
-      <li class="nav-item">
-          <a href={% url 'Supervision:supervision_add_host_page' %} class="nav-link text-dark active" aria-current="page">Ajout machine(s)</a>
-      </li>
+    <li class="nav-item">
+        <a href={% url 'Supervision:supervision_add_host_page' %} class="nav-link text-dark active" aria-current="page">Ajout machine(s)</a>
+    </li>
+    <li class="nav-item">
+      <a href={% url 'Supervision:supervision_add_app_page' %} class="nav-link text-dark active" aria-current="page">Ajout Application(s)</a>
+  </li>
   </ul>
 </nav>
 {% block app_content %}

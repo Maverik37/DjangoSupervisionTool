@@ -1,7 +1,7 @@
 #menu_app{
     background-color: darkgray;
     border: 1em solid darkgray;
-    width: max-content
+    width: auto
 }
 
 #tabs{
@@ -48,4 +48,6 @@ th{
 #menu_supervision{
     background-color: lightslategray !important;
     color: black;
+    width: 15em;
+    text-align: center;
 }

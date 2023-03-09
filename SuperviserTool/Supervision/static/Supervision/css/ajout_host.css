@@ -1,6 +1,11 @@
 #formulaire_ajout_host{
     position: relative;
-    left: 35em;
+    left: 30em;
+}
+
+#formulaire_ajout_app{
+    position: relative;
+    left: 30em;
 }
 
 .row{
