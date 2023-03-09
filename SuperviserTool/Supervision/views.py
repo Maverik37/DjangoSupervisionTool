@@ -33,3 +33,23 @@ def add_host_bdd(request):
 			return HttpResponse("Machine ajoutée",status=200)
 		except Exception as e:
 			return HttpResponse(e,status=500)
+
+@login_required
+def add_app_supervision_page(request):
+	qs_jmx_list= JmeterJmx.objects.all()
+	qs_host_list= HostList.objects.all()
+	print(request.body)
+	if request.user.is_authenticated:
+		username = request.user.username
+	return render(request,'Supervision/ajout_app_supervision.html',{'app_list':qs_app_list,'connecteduser':username,"scenarios":qs_jmx_list,"hosts":qs_host_list})
+
+
+@login_required
+@csrf_exempt
+def add_app_bdd(request):
+	if request.method == "POST":
+		try:
+			add_new_app(request.body)
+			return HttpResponse("Application ajoutée",status=200)
+		except Exception as e:
+			return HttpResponse(e,status=500)

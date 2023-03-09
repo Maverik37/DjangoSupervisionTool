@@ -1,0 +1,116 @@
+{% extends 'Supervision/home.html' %}
+
+
+{%block app_content%}
+{% load static %}
+
+  {% block javascript_app %}
+  <script src="{% static 'Supervision/js/ajout_app.js' %}"></script>
+  {% endblock%}
+
+  <div id="formulaire_ajout_app">
+    <div class="row">
+      <h2>Ajout d'une nouvelle application à superviser</h2>
+    </div>
+    <div class="row">
+      <div class="input-group mb-3 col">
+        <span class="input-group-text" id="inputGroup-sizing-default">appname</span>
+        <input id="inputappname" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+      </div>
+    </div>
+    <div class="row">
+      <div  class="col-lg">
+        <select id="selectHost" class="form-select" aria-label="Default select example">
+          <option selected value="">Sélectionnez une machine</option>
+          {% for host in hosts %}
+            <option value='{{host.id}}-{{host.h_name}}'>{{host.h_name}}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-sm">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addJmeter">
+          <i class="fa-solid fa-square-plus"></i>
+        </button>
+      </div>
+    </div>
+    <div class="row">
+      <div  class="col-lg">
+        <select id="selectJMX" class="form-select" aria-label="Default select example">
+          <option selected value="">Sélectionnez un scénario JMETER</option>
+          {% for scenario in scenarios %}
+            <option value='{{scenario.id}}'>{{scenario.j_name}}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-sm">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addJmeter">
+          <i class="fa-solid fa-square-plus"></i>
+        </button>
+      </div>
+    </div>
+    <div id="submitbutton" class="row">
+        <button id="validatebtn" class="btn btn-primary" type="submit">Valider</button>
+    </div>
+  </div>
+
+  <!-- Modal pour ajouter un nouvel OS -->
+  <div class="modal fade" id="addOS" tabindex="-1" aria-labelledby="addOSLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="addOSModalLabel">Ajout nouvel OS</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="input-group mb-3 col">
+              <span class="input-group-text" id="inputGroup-sizing-default">Nom</span>
+              <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-group mb-3 col">
+              <span class="input-group-text" id="inputGroup-sizing-default">Version</span>
+              <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+          <button type="button" class="btn btn-primary">Sauvegarder</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal pour ajouter un nouveau type de serveur -->
+  <div class="modal fade" id="addServer" tabindex="-1" aria-labelledby="addServerModalLabel" aria-hidden="true">
+    <div class="modal-dialog text-center">
+      <div class="modal-content">
+        <div class="modal-header ">
+          <h1 class="modal-title fs-5 " id="addServerModalLabel">Ajout nouveau type de serveur</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="input-group mb-3 col">
+              <span class="input-group-text" id="inputGroup-sizing-default">Nom</span>
+              <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-group mb-3 col">
+              <span class="input-group-text" id="inputGroup-sizing-default">Version</span>
+              <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+          <button type="button"  class="btn btn-primary">Sauvegarder</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+{% endblock %}

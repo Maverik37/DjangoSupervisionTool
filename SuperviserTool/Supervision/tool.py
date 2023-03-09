@@ -31,3 +31,30 @@ def add_new_host(dict):
         obj_host.save()
     except Exception as e:
         print(e)
+
+
+def add_new_app(dict):
+    #Conversion du dict en json
+    json_data=json.loads(dict)
+    #Attribution des variables
+    app_name = json_data["Application"]
+    host_id = json_data["hostname"].split('-')[0] #On prend que l'id pour récupérer l'objet en base
+    jmx_id = json_data["JMX"].split('-')[0] #On prend que l'id pour récupérer l'objet en base
+
+    #on récup les objets pour assurer l'ajout en base après
+    qs_host = HostList.objects.get(id=host_id)
+    print(qs_host)
+    qs_jmx = JmeterJmx.objects.get(id=jmx_id)
+    print(qs_jmx)
+
+    #On ajoute la nouvelle application dans la base
+    try:
+        obj_app=Application()
+        obj_app.a_name = app_name
+        obj_app.a_host = qs_host
+        obj_app.a_scenario_jmx = qs_jmx
+        obj_app.a_precedent_state = "OK"
+        obj_app.a_actual_state = "OK"
+        obj_app.save()
+    except Exception as e:
+        print(e)
