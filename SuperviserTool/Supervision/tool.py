@@ -50,11 +50,53 @@ def add_new_app(dict):
     #On ajoute la nouvelle application dans la base
     try:
         obj_app=Application()
-        obj_app.a_name = app_name
-        obj_app.a_host = qs_host
-        obj_app.a_scenario_jmx = qs_jmx
-        obj_app.a_precedent_state = "OK"
-        obj_app.a_actual_state = "OK"
         obj_app.save()
+    except Exception as e:
+        print(e)
+
+def add_new_jmx(dict):
+    #Conversion du dict en json
+    json_data=json.loads(dict)
+    #Attribution des variables
+    jmx_name = json_data["name"]
+    jmx_path_scenario = json_data["path_scenario"]
+    jmx_file_resultat = json_data["path_resu"]
+
+    #Ajout dans la base
+    try:
+        obj_jmx = JmeterJmx()
+        obj_jmx.j_name = jmx_name
+        if jmx_path_scenario != obj_jmx.j_scenario_path:
+            obj_jmx.j_scenario_path = jmx_path_scenario
+        obj_jmx.j_resultat_file=jmx_file_resultat
+        obj_jmx.save()
+    except Exception as e:
+        print(e)
+
+def add_new_os(dict):
+    json_data=json.loads(dict)
+
+    os = json_data["OS"]
+    version = json_data["version"]
+
+    try:
+        obj_os = OS()
+        obj_os.o_name = os
+        obj_os.o_version = version
+        obj_os.save()
+    except Exception as e:
+        print(e)
+
+def add_new_server(dict):
+    json_data=json.loads(dict)
+
+    server = json_data["Server"]
+    version = json_data["Version"]
+
+    try:
+        obj_server = TypeServer()
+        obj_server.t_name = server
+        obj_server.t_version_server = version
+        obj_server.save()
     except Exception as e:
         print(e)

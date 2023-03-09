@@ -17,32 +17,25 @@ function getCookie(name) {
 
 $(document).ready(function(){
     var $submit = $('#validatebtn');
-/*  TODO : REGEX pour check si l'input mis correspond bien a une adresse IP
-    let n = 0;
-    //compteur pour compter les numéros
-    $input_ip.on("change paste keyup",function(){
-        reg1 = new RegExp('([0-9]{1,3})');
-        n += 1;
-        
-        let value = $(this).val();
-        console.log(value);
-        if (n == 3  ){
-            if (reg1.test(value)){
-                $(this).css('color','green');
-            }
-            else{
-                $(this).css('color','red');
-            }
-        }
-    }); */
+        $PathScenario = $('#scenario_path');
+        $PathResultat = $('#res_path');
+        $SubmitJmx = $('#SubmitNewJmx');
+        $JmxName = $('#name_scenario');
 
     //Action à faire quand on valide le formulaire
+    //PréRemplissage des input pour les path
+    $PathScenario.val('/home/fourbasse/scripts/JMETER/scenarios/')
+    $PathResultat.val('/home/fourbasse/scripts/JMETER/resultats/')
 
+
+    // Envoi des données concernant la nouvelle application a ajouter
     $submit.on('click',function(){
+        // On récupère les différentes valeurs
         let app=$('#inputappname').val();
         let host=$('#selectHost option:selected').val();
         let JMX=$('#selectJMX option:selected').val();
 
+        // On vérifie que les données ont bien été saisies
         if (host == null || app == null || JMX == null){
             $.alert({
                 title: 'Alert!',
@@ -50,6 +43,7 @@ $(document).ready(function(){
             });
         }
         else{
+            // On crée un dict a envoyer via ajax
             let data={};
 
             data["Application"]=app;
@@ -58,11 +52,10 @@ $(document).ready(function(){
             
             //On formatte bien les données pour l'envoi vers la view qui va ajouter la nouvelle machine en base
             json=JSON.stringify(data);
-            console.log(json);
 
             // on récup le coockie sinon ca marche pas
             let csrftoken=getCookie('csrf-token');
-
+            // paramétrage avant l'appel AJAX
             $.ajaxSetup({
                 beforeSend: function(xhr) {
                     xhr.setRequestHeader('Csrf-Token', csrftoken);
@@ -70,6 +63,7 @@ $(document).ready(function(){
                          cache: false
             });
 
+            //Appel Ajax
             $.ajax({
                 headers: { "X-CSRFToken": csrftoken },
                 url: "/supervision/add_app_bdd/",
@@ -86,5 +80,51 @@ $(document).ready(function(){
             });
             
         }
+    });
+
+    // envoi data pour ajouter le nouveau scénario
+    $SubmitJmx.on('click',function(){
+        let jmx_name = $JmxName.val()+$('#basic-addon2').text();
+        let jmx_path_scenario = $PathScenario.val();
+        let jmx_path_resu = $PathResultat.val()
+
+        // Creation data à envoyer dans l'AJAX
+        let data = {};
+
+        data["name"] = jmx_name;
+        data["path_scenario"] = jmx_path_scenario;
+        data["path_resu"] = jmx_path_resu;
+
+        //On formatte bien les données pour l'envoi vers la view qui va ajouter la nouvelle machine en base
+        json=JSON.stringify(data);
+
+        // on récup le coockie sinon ca marche pas
+        let csrftoken=getCookie('csrf-token');
+        // paramétrage avant l'appel AJAX
+        $.ajaxSetup({
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader('Csrf-Token', csrftoken);
+            },
+                     cache: false
+        });
+
+        //Appel Ajax
+        $.ajax({
+            headers: { "X-CSRFToken": csrftoken },
+            url: "/supervision/add_jmx_bdd/",
+            type: "POST",
+            cache: false,
+            content_type: "application/json",
+            data: json,
+            success: function(response){
+            console.log(response);
+                $.alert({
+                    title: 'Success',
+                    content: 'Ajout réussit',
+                });
+                $('#addJMX').modal('hide');
+            }
+        });
+        
     });
 });

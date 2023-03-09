@@ -53,3 +53,34 @@ def add_app_bdd(request):
 			return HttpResponse("Application ajoutée",status=200)
 		except Exception as e:
 			return HttpResponse(e,status=500)
+
+@login_required
+@csrf_exempt	
+def add_jmx_bdd(request):
+	if request.method == "POST":
+		try:
+			add_new_jmx(request.body)
+			return HttpResponse("Jmx ajouté",status=200)
+		except Exception as e:
+			return HttpResponse(e,status=500)
+		
+@login_required
+@csrf_exempt	
+def add_os_bdd(request):
+	if request.method == "POST":
+		try:
+			add_new_os(request.body)
+			return HttpResponse("OS ajouté",status=200)
+		except Exception as e:
+			return HttpResponse(e,status=500)
+		
+
+@login_required
+@csrf_exempt	
+def add_server_bdd(request):
+	if request.method == "POST":
+		try:
+			add_new_server(request.body)
+			return HttpResponse("Server ajouté",status=200)
+		except Exception as e:
+			return HttpResponse(e,status=500)

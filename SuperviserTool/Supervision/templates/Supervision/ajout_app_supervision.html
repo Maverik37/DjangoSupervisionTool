@@ -27,11 +27,6 @@
           {% endfor %}
         </select>
       </div>
-      <div class="col-sm">
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addJmeter">
-          <i class="fa-solid fa-square-plus"></i>
-        </button>
-      </div>
     </div>
     <div class="row">
       <div  class="col-lg">
@@ -43,7 +38,7 @@
         </select>
       </div>
       <div class="col-sm">
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addJmeter">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addJMX">
           <i class="fa-solid fa-square-plus"></i>
         </button>
       </div>
@@ -53,61 +48,39 @@
     </div>
   </div>
 
-  <!-- Modal pour ajouter un nouvel OS -->
-  <div class="modal fade" id="addOS" tabindex="-1" aria-labelledby="addOSLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="addOSModalLabel">Ajout nouvel OS</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <div class="row">
-            <div class="input-group mb-3 col">
-              <span class="input-group-text" id="inputGroup-sizing-default">Nom</span>
-              <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-            </div>
-          </div>
-          <div class="row">
-            <div class="input-group mb-3 col">
-              <span class="input-group-text" id="inputGroup-sizing-default">Version</span>
-              <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-          <button type="button" class="btn btn-primary">Sauvegarder</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  
   <!-- Modal pour ajouter un nouveau type de serveur -->
-  <div class="modal fade" id="addServer" tabindex="-1" aria-labelledby="addServerModalLabel" aria-hidden="true">
+  <div class="modal fade" id="addJMX" tabindex="-1" aria-labelledby="addJMXModalLabel" aria-hidden="true">
     <div class="modal-dialog text-center">
       <div class="modal-content">
         <div class="modal-header ">
-          <h1 class="modal-title fs-5 " id="addServerModalLabel">Ajout nouveau type de serveur</h1>
+          <h1 class="modal-title fs-5 " id="addJMXModalLabel">Ajout nouveau scénarios</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <div class="row">
             <div class="input-group mb-3 col">
               <span class="input-group-text" id="inputGroup-sizing-default">Nom</span>
-              <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+              <input type="text" id="name_scenario" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+              <span class="input-group-text" id="basic-addon2">.jmx</span>
             </div>
           </div>
           <div class="row">
             <div class="input-group mb-3 col">
-              <span class="input-group-text" id="inputGroup-sizing-default">Version</span>
-              <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+              <span class="input-group-text" id="inputGroup-sizing-default">Emplacement scénario</span>
+              <input type="text" id="scenario_path" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+              
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-group mb-3 col">
+              <span class="input-group-text" id="inputGroup-sizing-default">Emplacement résultat</span>
+              <input type="text" id="res_path" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
             </div>
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-          <button type="button"  class="btn btn-primary">Sauvegarder</button>
+          <button id="SubmitNewJmx" type="button"  class="btn btn-primary">Sauvegarder</button>
         </div>
       </div>
     </div>
