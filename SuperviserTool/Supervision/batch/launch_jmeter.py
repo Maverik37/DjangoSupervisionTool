@@ -4,6 +4,7 @@ import sys
 import django
 import subprocess, re
 import pandas as pd
+from datetime import *
 #Configuration pour pouvoir importer les modèles django
 sys.path.append('/home/fourbasse/scripts/DJANGO/DjangoSupervisionTool/DjangoSupervisionTool/SuperviserTool/')
 os.environ["DJANGO_SETTINGS_MODULE"] = "SuperviserTool.settings"
@@ -11,6 +12,44 @@ django.setup()
 
 #Import du modèle
 from Supervision.models import *
+
+#Fonction pour ajouter quand il le faut la date d'un ko et qui va calculer la 
+#durée du dernier KO
+def get_failed_duration(queryset,data):
+    current_ko_date = datetime.today()
+    print("on est dans la fonction pour la durée des ko")
+    if queryset.a_date_last_KO is not None:
+        ko_app_date = queryset.a_date_last_KO.replace(tzinfo=None)
+
+        #On va calculer le delta avant d'enregistrer la date
+        current_delta =  current_ko_date - ko_app_date
+        last_duration = queryset.a_last_ko_duration
+        if last_duration is not None and queryset.a_actual_state != "OK":
+            #On sauvegarde en base la nouvelle date de KO + la nouvelle durée
+            try:
+                new_duration = current_delta + last_duration
+                print(new_duration)
+                queryset.a_date_last_KO = current_ko_date
+                queryset.a_last_ko_duration = new_duration
+                queryset.save()
+            except Exception as e:
+                print(e)
+        else:
+            return_to_zero = timedelta()
+            try:
+                queryset.a_last_ko_duration = return_to_zero
+                queryset.save()
+            except Exception as e:
+                print(e)
+    else:
+        if queryset.a_actual_state == "OK":
+            #On va juste ajouter la date du KO
+            try:
+                queryset.a_date_last_KO = current_ko_date
+                queryset.save()
+            except Exception as e:
+                print(e)
+
 
 class JMX():
     #Fonction pour lancer le scenarios jmeter
@@ -20,6 +59,7 @@ class JMX():
         #Le lancement de la commande est mise dans le try
         try:
             res_command = subprocess.run(jmeter_command,shell=True,stdout=subprocess.PIPE)
+            print(res_command.stdout)
         except Exception as e:
             print(e)
     def get_result(file,app_linked):
@@ -50,6 +90,7 @@ class JMX():
                         except Exception as e:
                             print(e)
                 else:
+                    get_failed_duration(app,csv_data)
                     if app.a_actual_state == "OK" and app.a_precedent_state == "OK":
                         try:
                             app.a_actual_state = "KO"
@@ -92,6 +133,7 @@ class JMX():
                             except Exception as e:
                                 print(e)
                     else:
+                        get_failed_duration(app,csv_data)
                         if app.a_actual_state == "OK" and app.a_precedent_state == "OK":
                             try:
                                 app.a_actual_state = "KO"
