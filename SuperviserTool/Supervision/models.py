@@ -39,6 +39,8 @@ class Application(models.Model):
     a_scenario_jmx = models.ForeignKey(JmeterJmx,related_name="j_jmx",on_delete=models.CASCADE,blank=True,null=True)
     a_precedent_state = models.CharField(max_length=10,verbose_name="Etat précédent")
     a_actual_state = models.CharField(max_length=10,verbose_name="Etat actuel")
+    a_date_last_KO = models.DateTimeField(verbose_name="Date dernier KO",blank=True, null=True)
+    a_last_ko_duration = models.DurationField(verbose_name="Durée dernier KO", blank=True, null=True)
 
     def __str__(self):
         return self.a_name+"-"+self.a_actual_state
