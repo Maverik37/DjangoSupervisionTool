@@ -1,5 +1,6 @@
 {% extends 'Applications/base.html' %}
 {% load static %}
+{% load Supervision_extras %}
 <!-- Chargements des différents static + ajout via les block javascript et css -->
 {% block css%}
 <!-- CSS -->
@@ -89,7 +90,8 @@
                     {{app.a_name}}
                 </div>
                 <div class="card-body">
-                    Etat {{app.a_actual_state}}
+                    <p>Etat {{app.a_actual_state}}</p>
+                    <p>Durée du dernier KO : {{app.a_last_ko_duration | duration}}</p>
                 </div>
             </div>
             {% else %}
@@ -99,7 +101,8 @@
                         {{app.a_name}}
                     </div>
                     <div class="card-body">
-                        Etat {{app.a_actual_state}}
+                      <p>Etat {{app.a_actual_state}}</p>
+                      <p>Durée du dernier KO : {{app.a_last_ko_duration | duration}}</p>
                     </div>
                   </div>
                 {% else %}
@@ -110,6 +113,7 @@
                     <div class="card-body">
                         <p>Etat {{app.a_actual_state}}</p>
                         <p>Raison : {{app.a_host.h_name}} est KO</p>
+                        <p>Durée du KO : {{app.a_last_ko_duration | duration}}</p>
                     </div>
                   </div>
                 {% endif %}
