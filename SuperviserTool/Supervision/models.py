@@ -19,6 +19,8 @@ class HostList(models.Model):
     h_ip = models.CharField(max_length=50, verbose_name="IP")
     h_os = models.ForeignKey(OS,related_name="o_os_installed",verbose_name="OS", on_delete=models.CASCADE,blank=True,null=True)
     h_type_server = models.ForeignKey(TypeServer,related_name="t_server_installed", verbose_name="Serveur", on_delete=models.CASCADE,blank=True,null=True)
+    h_total_memory = models.FloatField(max_length=50, verbose_name="Mémoire totale", blank=True,null=True)
+    h_total_swap = models.FloatField(max_length=50, verbose_name="Swap total", blank=True,null=True)
     h_status = models.CharField(max_length=10,verbose_name="Etat")
 
     def __str__(self):
